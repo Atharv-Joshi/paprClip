@@ -5,17 +5,41 @@ class RowData extends StatelessWidget {
   final String? column1;
   final String? column3;
   final String? column2;
-  const RowData({Key? key, this.column1 = '', this.column2 = '', this.column3 = '', this.isPivotPointData = false}) : super(key: key);
+  Color? column3Color;
+  RowData({Key? key, this.column1 = '', this.column2 = '', this.column3 = '', this.isPivotPointData = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    switch(column3){
+      case 'Buy' : {
+        column3Color = Colors.blue;
+      }
+      break;
+      case 'Sell' : {
+        column3Color = Colors.deepOrange;
+      }
+      break;
+      case 'Neutral' : {
+        column3Color = const Color(0xffFFB946);
+      }
+      break;
+      case 'Overbought' : {
+        column3Color = Colors.red;
+      }
+      break;
+      case 'Less Volatility' : {
+        column3Color = Colors.grey;
+      }
+      break;
+    }
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10 , horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            Container(
-             width: 50,
+             width: isPivotPointData ? 100 : 70,
+             // color: Colors.green,
              child: Text(
               column1 ?? '-',
               style: TextStyle(
@@ -24,20 +48,31 @@ class RowData extends StatelessWidget {
               ),
           ),
            ),
-           isPivotPointData == false ? Text(
-            column2 ?? '-',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 14
-            ),
-          ) : Container(),
-           Text(
-            column3 ?? '-',
-            style: TextStyle(
-                color:  isPivotPointData ? Colors.white : column3 == 'Buy' ?  Colors.blue : Colors.red ,
-                fontSize: 14
-            ),
+           isPivotPointData == false ?  Container(
+             // color: Colors.red,
+             width: 70,
+             margin: EdgeInsets.only(left: 80),
+             child: Text(
+              column2 ?? '-',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14
+              ),
           ),
+           ) : Container(),
+           Container(
+             margin:  isPivotPointData? const EdgeInsets.only(left: 80) : const EdgeInsets.only(left: 30),
+             width:  90,
+             // color: Colors.yellow,
+             child: Text(
+              column3 ?? '-',
+              textDirection: TextDirection.rtl,
+              style: TextStyle(
+                  color:  isPivotPointData ? Colors.white : column3Color,
+                  fontSize: 14
+              ),
+          ),
+           ),
         ],
       ),
     );

@@ -28,6 +28,7 @@ class Home extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot snapshot)
           {
             if(snapshot.hasData){
+              optionController.updateData(snapshot.data);
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                 height: double.infinity,
@@ -45,8 +46,15 @@ class Home extends StatelessWidget {
                         color: const Color(0xff121212),
                       ),
                       const SubHeading(text: 'Summary'),
-                      SelectEstimatedTimeSection(),
-                      const SubHeading(text: 'Moving Averages'),
+                      Obx(
+                          () => Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              child:  SelectEstimatedTimeSection(action: snapshot.data[optionController.estTime.value]['summary']['summary_text'],)
+                          )
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 50, 0, 36),
+                          child: const SubHeading(text: 'Moving Averages')),
                       Obx(
                           () => RecommendedAction(bgColor: Colors.blueAccent, action: snapshot.data[optionController.estTime.value]['moving_averages']['text']),
                       ),
@@ -75,7 +83,9 @@ class Home extends StatelessWidget {
                             ).toList(),
                           )
                       ),
-                      const SubHeading(text: 'Oscillators'),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 50, 0, 36),
+                          child: const SubHeading(text: 'Oscillators')),
                       Obx(
                           () =>
                               RecommendedAction(bgColor: Color(0xffFF2E50), action: snapshot.data[optionController.estTime.value]['technical_indicator']['text'])
@@ -106,7 +116,7 @@ class Home extends StatelessWidget {
                       ),
 
                       Container(
-                          margin: const EdgeInsets.fromLTRB(0, 45, 0, 30),
+                          margin: const EdgeInsets.fromLTRB(0, 50, 0, 36),
                           child: const SubHeading(text: 'Pivot Points',)
                       ),
                       OptionButton(optionList: ['classic', 'demark', 'fibonacci', 'camarilla', 'woodie'], isTableData: false,),
