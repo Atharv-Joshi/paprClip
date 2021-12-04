@@ -35,7 +35,7 @@ class RowData extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            Container(
              width: isPivotPointData ? 100 : 70,
@@ -51,7 +51,7 @@ class RowData extends StatelessWidget {
            isPivotPointData == false ?  Container(
              // color: Colors.red,
              width: 70,
-             margin: EdgeInsets.only(left: 80),
+             // margin: EdgeInsets.only(left: 80),
              child: Text(
               column2 ?? '-',
               style: const TextStyle(
@@ -61,8 +61,8 @@ class RowData extends StatelessWidget {
           ),
            ) : Container(),
            Container(
-             margin:  isPivotPointData? const EdgeInsets.only(left: 80) : const EdgeInsets.only(left: 30),
-             width:  90,
+             // margin:  isPivotPointData? const EdgeInsets.only(left: 80) : const EdgeInsets.only(left: 30),
+             width:  80,
              // color: Colors.yellow,
              child: Text(
               column3 ?? '-',
